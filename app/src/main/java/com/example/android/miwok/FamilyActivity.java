@@ -29,16 +29,16 @@ public class FamilyActivity extends AppCompatActivity {
         setContentView(R.layout.word_list_activity);
 
         ArrayList<Word> words = new ArrayList<>();
-        words.add(new Word("pere", "father"));
-        words.add(new Word("mere", "mother"));
-        words.add(new Word("frere", "brother"));
-        words.add(new Word("soeur", "sister"));
-        words.add(new Word("grandpere", "grand-father"));
-        words.add(new Word("grandmere", "grand-mother"));
-        words.add(new Word("oncle", "uncle"));
-        words.add(new Word("tante", "aunt"));
-        words.add(new Word("cousin", "cousin"));
-        words.add(new Word("cousine", "cousin"));
+        words.add(new Word("pere", "father", R.drawable.family_father));
+        words.add(new Word("mere", "mother", R.drawable.family_mother));
+        words.add(new Word("frere", "brother", R.drawable.family_younger_brother));
+        words.add(new Word("soeur", "sister", R.drawable.family_younger_sister));
+        words.add(new Word("grandpere", "grand-father", R.drawable.family_grandfather));
+        words.add(new Word("grandmere", "grand-mother", R.drawable.family_grandmother));
+        words.add(new Word("oncle", "uncle", R.drawable.family_older_brother));
+        words.add(new Word("tante", "aunt", R.drawable.family_older_sister));
+        words.add(new Word("cousin", "cousin", R.drawable.family_younger_brother));
+        words.add(new Word("cousine", "cousin", R.drawable.family_younger_sister));
 
 
         WordAdapter itemsAdapter = new WordAdapter(this, words);
