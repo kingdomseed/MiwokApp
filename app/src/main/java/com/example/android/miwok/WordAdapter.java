@@ -3,19 +3,25 @@ package com.example.android.miwok;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
 
 public class WordAdapter extends ArrayAdapter {
 
-    public WordAdapter(Context context, List<Word> words)
+    private int backgroundColorResourceID;
+
+    public WordAdapter(Context context, List<Word> words, int bgcid)
     {
         super(context, R.layout.language_list_layout, words);
+        backgroundColorResourceID = bgcid;
 
     }
 
@@ -29,6 +35,10 @@ public class WordAdapter extends ArrayAdapter {
                     R.layout.language_list_layout, parent, false);
         }
 
+        View textContainer = listItemView.findViewById(R.id.linearLayoutForBackgroundColor);
+        int color = ContextCompat.getColor(getContext(), backgroundColorResourceID);
+        textContainer.setBackgroundColor(color);
+
         Word currentWord = (Word) getItem(position);
 
         TextView frenchTranslationTextView = (TextView) listItemView.findViewById(R.id.word);
@@ -36,6 +46,17 @@ public class WordAdapter extends ArrayAdapter {
 
         TextView englishTranslationTextView = (TextView) listItemView.findViewById(R.id.translation);
         englishTranslationTextView.setText(currentWord.getDefaultTranslation());
+
+
+        ImageView pictureTranslationImageView = (ImageView) listItemView.findViewById(R.id.image);
+        pictureTranslationImageView.setImageResource(currentWord.getmImageResourceID());
+
+        if(pictureTranslationImageView.getDrawable() != null)
+        {
+            pictureTranslationImageView.setVisibility(ImageView.VISIBLE);
+        } else {
+            pictureTranslationImageView.setVisibility(ImageView.GONE);
+        }
 
         return listItemView;
     }

@@ -29,7 +29,6 @@ public class NumbersActivity extends AppCompatActivity {
         setContentView(R.layout.word_list_activity);
 
         ArrayList<Word> words = new ArrayList<>();
-        words.add(new Word("zero", "zero", R.drawable.color_black));
         words.add(new Word("un", "one", R.drawable.number_one));
         words.add(new Word("deux", "two", R.drawable.number_two));
         words.add(new Word("trois", "three", R.drawable.number_three));
@@ -39,9 +38,10 @@ public class NumbersActivity extends AppCompatActivity {
         words.add(new Word("sept", "seven", R.drawable.number_seven));
         words.add(new Word("huit", "eight", R.drawable.number_eight));
         words.add(new Word("neuf", "nine", R.drawable.number_nine));
+        words.add(new Word("dix", "ten", R.drawable.number_ten));
 
 
-        WordAdapter itemsAdapter = new WordAdapter(this, words);
+        WordAdapter itemsAdapter = new WordAdapter(this, words, R.color.category_numbers);
 
         ListView listView = (ListView) findViewById(R.id.list);
 

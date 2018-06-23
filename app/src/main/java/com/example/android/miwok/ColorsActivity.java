@@ -37,7 +37,7 @@ public class ColorsActivity extends AppCompatActivity {
         words.add(new Word("brun", "brun", R.drawable.color_brown));
         words.add(new Word("gris", "grey", R.drawable.color_gray));
 
-        WordAdapter itemsAdapter = new WordAdapter(this, words);
+        WordAdapter itemsAdapter = new WordAdapter(this, words, R.color.category_colors);
 
         ListView listView = (ListView) findViewById(R.id.list);
 
