@@ -29,16 +29,16 @@ public class PhrasesActivity extends AppCompatActivity {
         setContentView(R.layout.word_list_activity);
 
         ArrayList<Word> words = new ArrayList<>();
-        words.add(new Word("zero", "zero"));
-        words.add(new Word("un", "one"));
-        words.add(new Word("deux", "two"));
-        words.add(new Word("trois", "three"));
-        words.add(new Word("quatre", "four"));
-        words.add(new Word("cinq", "five"));
-        words.add(new Word("six", "six"));
-        words.add(new Word("sept", "seven"));
-        words.add(new Word("huit", "eight"));
-        words.add(new Word("neuf", "nine"));
+        words.add(new Word("zero", "zero", R.raw.phrase_are_you_coming));
+        words.add(new Word("un", "one", R.raw.phrase_come_here));
+        words.add(new Word("deux", "two", R.raw.phrase_how_are_you_feeling));
+        words.add(new Word("trois", "three", R.raw.phrase_im_coming));
+        words.add(new Word("quatre", "four", R.raw.phrase_im_feeling_good));
+        words.add(new Word("cinq", "five", R.raw.phrase_lets_go));
+        words.add(new Word("six", "six", R.raw.phrase_my_name_is));
+        words.add(new Word("sept", "seven", R.raw.phrase_what_is_your_name));
+        words.add(new Word("huit", "eight", R.raw.phrase_where_are_you_going));
+        words.add(new Word("neuf", "nine", R.raw.phrase_yes_im_coming));
 
 
         WordAdapter itemsAdapter = new WordAdapter(this, words, R.color.category_phrases);

@@ -1,6 +1,7 @@
 package com.example.android.miwok;
 
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -17,12 +18,11 @@ import java.util.List;
 public class WordAdapter extends ArrayAdapter {
 
     private int backgroundColorResourceID;
+    private MediaPlayer mediaPlayer;
 
-    public WordAdapter(Context context, List<Word> words, int bgcid)
-    {
+    public WordAdapter(Context context, List<Word> words, int backgroundColorResourceID) {
         super(context, R.layout.language_list_layout, words);
-        backgroundColorResourceID = bgcid;
-
+        this.backgroundColorResourceID = backgroundColorResourceID;
     }
 
     @NonNull
@@ -30,7 +30,8 @@ public class WordAdapter extends ArrayAdapter {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View listItemView = convertView;
 
-        if(listItemView == null) {
+
+        if (listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(
                     R.layout.language_list_layout, parent, false);
         }
@@ -39,7 +40,16 @@ public class WordAdapter extends ArrayAdapter {
         int color = ContextCompat.getColor(getContext(), backgroundColorResourceID);
         textContainer.setBackgroundColor(color);
 
-        Word currentWord = (Word) getItem(position);
+
+        final Word currentWord = (Word) getItem(position);
+
+        textContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mediaPlayer = MediaPlayer.create(getContext(), currentWord.getmSoundFileID());
+                mediaPlayer.start();
+            }
+        });
 
         TextView frenchTranslationTextView = (TextView) listItemView.findViewById(R.id.word);
         frenchTranslationTextView.setText(currentWord.getFrenchTranslation());
@@ -47,12 +57,10 @@ public class WordAdapter extends ArrayAdapter {
         TextView englishTranslationTextView = (TextView) listItemView.findViewById(R.id.translation);
         englishTranslationTextView.setText(currentWord.getDefaultTranslation());
 
-
         ImageView pictureTranslationImageView = (ImageView) listItemView.findViewById(R.id.image);
         pictureTranslationImageView.setImageResource(currentWord.getmImageResourceID());
 
-        if(pictureTranslationImageView.getDrawable() != null)
-        {
+        if (pictureTranslationImageView.getDrawable() != null) {
             pictureTranslationImageView.setVisibility(ImageView.VISIBLE);
         } else {
             pictureTranslationImageView.setVisibility(ImageView.GONE);

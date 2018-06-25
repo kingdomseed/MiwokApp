@@ -29,13 +29,13 @@ public class ColorsActivity extends AppCompatActivity {
         setContentView(R.layout.word_list_activity);
 
         ArrayList<Word> words = new ArrayList<>();
-        words.add(new Word("noir", "black", R.drawable.color_black));
-        words.add(new Word("blanc", "white", R.drawable.color_white));
-        words.add(new Word("vert", "green", R.drawable.color_green));
-        words.add(new Word("jaune", "yellow", R.drawable.color_mustard_yellow));
-        words.add(new Word("rouge", "red", R.drawable.color_red));
-        words.add(new Word("brun", "brun", R.drawable.color_brown));
-        words.add(new Word("gris", "grey", R.drawable.color_gray));
+        words.add(new Word("noir", "black", R.drawable.color_black, R.raw.color_black));
+        words.add(new Word("blanc", "white", R.drawable.color_white, R.raw.color_white));
+        words.add(new Word("vert", "green", R.drawable.color_green, R.raw.color_green));
+        words.add(new Word("jaune", "yellow", R.drawable.color_mustard_yellow, R.raw.color_mustard_yellow));
+        words.add(new Word("rouge", "red", R.drawable.color_red, R.raw.color_red));
+        words.add(new Word("brun", "brun", R.drawable.color_brown, R.raw.color_brown));
+        words.add(new Word("gris", "gray", R.drawable.color_gray, R.raw.color_gray));
 
         WordAdapter itemsAdapter = new WordAdapter(this, words, R.color.category_colors);
 

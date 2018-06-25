@@ -5,19 +5,20 @@ public class Word {
     private String mFrenchTranslation;
     private String mDefaultTranslation;
     private int mImageResourceID;
+    private int mSoundFileID;
 
-    public Word(String french, String defaultTranslation)
-    {
+    public Word(String french, String defaultTranslation, int soundFileID) {
         mFrenchTranslation = french;
         mDefaultTranslation = defaultTranslation;
         mImageResourceID = 0;
+        mSoundFileID = soundFileID;
     }
 
-    public Word(String french, String defaultTranslation, int imageResourceID)
-    {
+    public Word(String french, String defaultTranslation, int imageResourceID, int soundFileID) {
         mFrenchTranslation = french;
         mDefaultTranslation = defaultTranslation;
         mImageResourceID = imageResourceID;
+        mSoundFileID = soundFileID;
     }
 
     public String getFrenchTranslation() {
@@ -28,8 +29,11 @@ public class Word {
         return mDefaultTranslation;
     }
 
-    public int getmImageResourceID()
-    {
+    public int getmImageResourceID() {
         return mImageResourceID;
+    }
+
+    public int getmSoundFileID() {
+        return mSoundFileID;
     }
 }
