@@ -15,20 +15,50 @@
  */
 package com.example.android.miwok;
 
+import android.content.Context;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
 public class NumbersActivity extends AppCompatActivity {
 
+    private MediaPlayer mediaPlayer;
+    private ArrayList<Word> words;
+    private AudioManager am;
+
+    private MediaPlayer.OnCompletionListener mOnCompletionListener = new MediaPlayer.OnCompletionListener() {
+        @Override
+        public void onCompletion(MediaPlayer mp) {
+            releaseMediaPlayer();
+        }
+    };
+
+    private AudioManager.OnAudioFocusChangeListener afChangeListener =
+            new AudioManager.OnAudioFocusChangeListener() {
+                public void onAudioFocusChange(int focusChange) {
+                    if (focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT || focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK) {
+                        mediaPlayer.pause();
+                        mediaPlayer.seekTo(0);
+                    } else if (focusChange == AudioManager.AUDIOFOCUS_LOSS ) {
+                        releaseMediaPlayer();
+                    } else if (focusChange == AudioManager.AUDIOFOCUS_GAIN) {
+                        mediaPlayer.start();
+                    }
+                }
+            };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.word_list_activity);
 
-        ArrayList<Word> words = new ArrayList<>();
+        words = new ArrayList<>();
         words.add(new Word("un", "one", R.drawable.number_one, R.raw.number_one));
         words.add(new Word("deux", "two", R.drawable.number_two, R.raw.number_two));
         words.add(new Word("trois", "three", R.drawable.number_three, R.raw.number_three));
@@ -47,7 +77,41 @@ public class NumbersActivity extends AppCompatActivity {
 
         listView.setAdapter(itemsAdapter);
 
+        am = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
+                releaseMediaPlayer();
+
+                int result = am.requestAudioFocus(afChangeListener, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
+                if(result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED)
+                {
+                    mediaPlayer = MediaPlayer.create(getApplicationContext(), words.get(position).getmSoundFileID());
+                    mediaPlayer.start();
+                    mediaPlayer.setOnCompletionListener(mOnCompletionListener);
+                }
+            }
+        });
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        releaseMediaPlayer();
+    }
+
+    private void releaseMediaPlayer() {
+
+        if (mediaPlayer != null) {
+
+            mediaPlayer.release();
+
+            mediaPlayer = null;
+
+            am.abandonAudioFocus(afChangeListener);
+        }
+    }
+
 }

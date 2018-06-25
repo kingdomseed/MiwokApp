@@ -18,7 +18,6 @@ import java.util.List;
 public class WordAdapter extends ArrayAdapter {
 
     private int backgroundColorResourceID;
-    private MediaPlayer mediaPlayer;
 
     public WordAdapter(Context context, List<Word> words, int backgroundColorResourceID) {
         super(context, R.layout.language_list_layout, words);
@@ -42,14 +41,6 @@ public class WordAdapter extends ArrayAdapter {
 
 
         final Word currentWord = (Word) getItem(position);
-
-        textContainer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mediaPlayer = MediaPlayer.create(getContext(), currentWord.getmSoundFileID());
-                mediaPlayer.start();
-            }
-        });
 
         TextView frenchTranslationTextView = (TextView) listItemView.findViewById(R.id.word);
         frenchTranslationTextView.setText(currentWord.getFrenchTranslation());
